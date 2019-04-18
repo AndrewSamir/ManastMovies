@@ -12,13 +12,11 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class RestManasatMovies
-{
+public class RestManasatMovies {
     public String apiKey = "ApiKey";
     public String Authorization = "Authorization";
 
-    public static ApiCall create()
-    {
+    public static ApiCall create() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
                /* .readTimeout(1, TimeUnit.MINUTES)
                 .connectTimeout(5, TimeUnit.SECONDS);*/
@@ -32,11 +30,9 @@ public class RestManasatMovies
         //  httpClient.addInterceptor(interceptor).build();
 
 
-        builder.addInterceptor(new Interceptor()
-        {
+        builder.addInterceptor(new Interceptor() {
             @Override
-            public Response intercept(Chain chain) throws IOException
-            {
+            public Response intercept(Chain chain) throws IOException {
 
                 Request request = chain.request();
                 Request newRequest;
@@ -52,7 +48,7 @@ public class RestManasatMovies
 
         OkHttpClient httpClient = builder.build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://pharaohsland.tours/tasawk/api/")
+                .baseUrl("https://api.themoviedb.org/3/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient)
