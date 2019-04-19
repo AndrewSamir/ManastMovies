@@ -16,6 +16,7 @@ import com.andrew.samir.manastmovies.R;
 import com.andrew.samir.manastmovies.activities.BaseViewModel;
 import com.andrew.samir.manastmovies.application.ManasatMoviesApplication;
 import com.andrew.samir.manastmovies.retorfitconfig.ApiCall;
+import com.andrew.samir.manastmovies.utlities.HelpMe;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -36,6 +37,9 @@ public class PeopleViewModel extends BaseViewModel {
     private Context context;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private List<PersonDetailsData> peopleList;
+    int page = 1;
+    int searchPage = 1;
+    boolean isSearch = false;
     //endregion
 
     //region constructor
@@ -48,11 +52,8 @@ public class PeopleViewModel extends BaseViewModel {
 
     //region clicks
     public void AtBtnClick() {
-        testInt.set(testInt.get() + 5);
-        x.postValue(testInt.get() + 5);
-        testString.set(testInt.get() + "");
-
-        fetchCategories();
+//        Log.d("testText",testString.get());
+        callSearchPeople();
     }
 
     //endregion
@@ -66,22 +67,106 @@ public class PeopleViewModel extends BaseViewModel {
     //region calls
 
     private void fetchCategories() {
+        HelpMe.showLoading(true);
         ManasatMoviesApplication peopleApplication = ManasatMoviesApplication.create(context);
         ApiCall peopleService = peopleApplication.getApiCall();
-
-        Disposable disposable = peopleService.callGetPeopleList("c9118723dfaacb064858a46444a9a6c8")
+        searchPage = 1;
+        isSearch = false;
+        Disposable disposable = peopleService.callGetPeopleList("c9118723dfaacb064858a46444a9a6c8", page)
                 .subscribeOn(peopleApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<ResponseData>() {
                     @Override
                     public void accept(ResponseData peopleResponse) {
-//                        showMessage(R.string.connection_error, context);
+                        HelpMe.showLoading(false);
+                        changePeopleDataSet(peopleResponse.getResults());
+                        Log.d("calls", peopleResponse.getResults().get(0).getName());
+                        page++;
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) {
+                        HelpMe.showLoading(false);
+                        showMessage(R.string.connection_error, context);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+    private void callSearchPeople() {
+        HelpMe.showLoading(true);
+        ManasatMoviesApplication peopleApplication = ManasatMoviesApplication.create(context);
+        ApiCall peopleService = peopleApplication.getApiCall();
+        page = 1;
+        isSearch = true;
+        Disposable disposable = peopleService.callSearchPeople("c9118723dfaacb064858a46444a9a6c8", testString.get(), searchPage)
+                .subscribeOn(peopleApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseData>() {
+                    @Override
+                    public void accept(ResponseData peopleResponse) {
+                        HelpMe.showLoading(false);
+                        changePeopleDataSetSearch(peopleResponse.getResults());
+                        searchPage++;
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) {
+                        HelpMe.showLoading(false);
+                        showMessage(R.string.connection_error, context);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+    void callSearchPeopleMore() {
+        HelpMe.showLoading(true);
+        ManasatMoviesApplication peopleApplication = ManasatMoviesApplication.create(context);
+        ApiCall peopleService = peopleApplication.getApiCall();
+        page = 1;
+        Disposable disposable = peopleService.callSearchPeople("c9118723dfaacb064858a46444a9a6c8", testString.get(), searchPage)
+                .subscribeOn(peopleApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseData>() {
+                    @Override
+                    public void accept(ResponseData peopleResponse) {
+                        HelpMe.showLoading(false);
+                        changePeopleDataSet(peopleResponse.getResults());
+                        searchPage++;
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) {
+                        HelpMe.showLoading(false);
+                        showMessage(R.string.connection_error, context);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+    void fetchCategoriesMore() {
+        HelpMe.showLoading(true);
+        ManasatMoviesApplication peopleApplication = ManasatMoviesApplication.create(context);
+        ApiCall peopleService = peopleApplication.getApiCall();
+
+        Disposable disposable = peopleService.callGetPeopleList("c9118723dfaacb064858a46444a9a6c8", page)
+                .subscribeOn(peopleApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseData>() {
+                    @Override
+                    public void accept(ResponseData peopleResponse) {
+                        HelpMe.showLoading(false);
+                        page++;
                         changePeopleDataSet(peopleResponse.getResults());
                         Log.d("calls", peopleResponse.getResults().get(0).getName());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) {
+                        HelpMe.showLoading(false);
                         showMessage(R.string.connection_error, context);
                     }
                 });
@@ -93,6 +178,13 @@ public class PeopleViewModel extends BaseViewModel {
 
     //region functions
     private void changePeopleDataSet(List<PersonDetailsData> peoples) {
+        peopleList.addAll(peoples);
+        setChanged();
+        notifyObservers("call");
+    }
+
+    private void changePeopleDataSetSearch(List<PersonDetailsData> peoples) {
+        peopleList.clear();
         peopleList.addAll(peoples);
         setChanged();
         notifyObservers("call");

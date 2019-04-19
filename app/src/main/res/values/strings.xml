@@ -3,4 +3,6 @@
 
     <string name="agree">OK</string>
     <string name="connection_error">Wrong With Internet Connection</string>
+    <string name="write_here">Write Here</string>
+    <string name="search">Search</string>
 </resources>

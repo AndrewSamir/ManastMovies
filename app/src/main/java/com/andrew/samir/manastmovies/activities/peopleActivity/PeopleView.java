@@ -13,10 +13,11 @@ import android.widget.Button;
 import com.andrew.samir.manastmovies.R;
 import com.andrew.samir.manastmovies.adapters.PeopleAdapter;
 import com.andrew.samir.manastmovies.databinding.PeopleListBinding;
+import com.andrew.samir.manastmovies.interfaces.OnRequestMoreListener;
 
 import java.util.Observable;
 
-public class PeopleView extends AppCompatActivity implements java.util.Observer {
+public class PeopleView extends AppCompatActivity implements java.util.Observer, OnRequestMoreListener {
     private PeopleViewModel peopleViewModel;
     PeopleListBinding peopleListBinding;
 
@@ -45,7 +46,7 @@ public class PeopleView extends AppCompatActivity implements java.util.Observer 
     }
 
     private void setupListPeopleView(RecyclerView listPeople) {
-        PeopleAdapter adapter = new PeopleAdapter();
+        PeopleAdapter adapter = new PeopleAdapter(this);
         listPeople.setAdapter(adapter);
         listPeople.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -69,9 +70,6 @@ public class PeopleView extends AppCompatActivity implements java.util.Observer 
         String flag = (String) arg;
 
         switch (flag) {
-            case "test":
-
-                break;
             case "call":
                 if (o instanceof PeopleViewModel) {
                     PeopleAdapter peopleAdapter = (PeopleAdapter) peopleListBinding.listPeople.getAdapter();
@@ -80,6 +78,13 @@ public class PeopleView extends AppCompatActivity implements java.util.Observer 
                 }
                 break;
         }
+    }
 
+    @Override
+    public void requestMoreData(RecyclerView.Adapter adapter, int position) {
+        if (peopleViewModel.isSearch)
+            peopleViewModel.callSearchPeopleMore();
+        else
+            peopleViewModel.fetchCategoriesMore();
     }
 }

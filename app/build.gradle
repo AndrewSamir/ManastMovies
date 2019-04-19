@@ -63,4 +63,7 @@ dependencies {
     //dialog
     implementation 'com.afollestad.material-dialogs:core:0.9.4.5'
 
+    //my library loading
+    implementation 'com.github.kickstartinteractiveandroidteam:KsiProjectMate:v1.1'
+
 }
