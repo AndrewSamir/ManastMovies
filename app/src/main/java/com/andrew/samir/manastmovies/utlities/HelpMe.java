@@ -1,6 +1,7 @@
 package com.andrew.samir.manastmovies.utlities;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -34,54 +35,46 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
+import developer.mokadim.projectmate.dialog.IndicatorStyle;
+import developer.mokadim.projectmate.dialog.ProgressDialog;
 
-/**
- * Created by lenovo on 1/26/2016.
- */
-public class HelpMe
-{
+public class HelpMe {
     // static Uri.Builder builder;
 
     private static Context context;
     private static HelpMe instance = null;
+    static Dialog progressDialog;
     // public final String Socket_SERVER_URL = "http://192.168.1.110:3000/";
 
     //   public String Socket_SERVER_URL = baseSocketUrl;
     private Gson gson;
 //  public   Socket mSocket;
 
-    public static HelpMe getInstance(Context context)
-    {
+    public static HelpMe getInstance(Context context) {
 
 
         HelpMe.context = context;
 
-        if (instance == null)
-        {
+        if (instance == null) {
             instance = new HelpMe();
         }
         return instance;
     }
 
-    public boolean isTablet()
-    {
+    public boolean isTablet() {
         return (context.getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
-    public Object parseJsonToObject(String response, Class<?> modelClass)
-    {
-        if (gson == null)
-        {
+    public Object parseJsonToObject(String response, Class<?> modelClass) {
+        if (gson == null) {
             gson = new GsonBuilder().serializeNulls().create();
         }
 
-        try
-        {
+        try {
             return gson.fromJson(response, modelClass);
-        } catch (Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
             return null;
         }
@@ -93,31 +86,25 @@ public class HelpMe
      * @param object The object which Json will represent.
      * @return Json representation of src.
      */
-    public String parseObjectToJson(Object object)
-    {
-        if (gson == null)
-        {
+    public String parseObjectToJson(Object object) {
+        if (gson == null) {
             gson = new GsonBuilder().serializeNulls().create();
         }
         return gson.toJson(object);
     }
 
 
-    public boolean isAppInstalled(String packageName)
-    {
-        try
-        {
+    public boolean isAppInstalled(String packageName) {
+        try {
             //boolean whatsappFound = AndroidHelper.isAppInstalled(context, "com.whatsapp");
             context.getPackageManager().getApplicationInfo(packageName, 0);
             return true;
-        } catch (PackageManager.NameNotFoundException e)
-        {
+        } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
     }
 
-    public Bitmap createDrawableFromView(View view)
-    {
+    public Bitmap createDrawableFromView(View view) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay()
                 .getMetrics(displayMetrics);
@@ -135,8 +122,7 @@ public class HelpMe
     }
 
 
-    public void initLang(String lang)
-    {
+    public void initLang(String lang) {
 
         //  String lang = SharedPrefUtil.getInstance(getApplicationContext()).read("settingLangName", "en");
         //  String lang = "ar";
@@ -149,17 +135,14 @@ public class HelpMe
     }
 
 
-    public void hideKeyBoard(Activity act)
-    {
+    public void hideKeyBoard(Activity act) {
         act.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         InputMethodManager imm = (InputMethodManager) act.getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
-    public void spliteForLog(String veryLongString)
-    {
+    public void spliteForLog(String veryLongString) {
         int maxLogStringSize = 1000;
-        for (int i = 0; i <= veryLongString.length() / maxLogStringSize; i++)
-        {
+        for (int i = 0; i <= veryLongString.length() / maxLogStringSize; i++) {
             int start = i * maxLogStringSize;
             int end = (i + 1) * maxLogStringSize;
             end = end > veryLongString.length() ? veryLongString.length() : end;
@@ -168,10 +151,8 @@ public class HelpMe
     }
 
     //======================================================//
-    public String md5(String s)
-    {
-        try
-        {
+    public String md5(String s) {
+        try {
             // Create MD5 Hash
             MessageDigest digest = MessageDigest.getInstance("MD5");
             digest.update(s.getBytes());
@@ -183,37 +164,31 @@ public class HelpMe
                 hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
             return hexString.toString();
 
-        } catch (NoSuchAlgorithmException e)
-        {
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return "";
     }
 
-    public void hidekeyboard(Activity act)
-    {
+    public void hidekeyboard(Activity act) {
         act.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         InputMethodManager imm = (InputMethodManager) act.getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
 
-    public void importDB()
-    {
+    public void importDB() {
 
-        try
-        {
+        try {
             File sd = Environment.getExternalStorageDirectory();
             File data = Environment.getDataDirectory();
 
-            if (sd.canWrite())
-            {
+            if (sd.canWrite()) {
                 String currentDBPath = "/data/" + "ksi.com.ysf.ysf" + "/databases/" + "ysf.db";
                 String backupDBPath = Environment.getExternalStorageDirectory() + "/ysf.db";
                 File currentDB = new File(data, currentDBPath);
                 File backupDB = new File(sd, backupDBPath);
 
-                if (currentDB.exists())
-                {
+                if (currentDB.exists()) {
                     FileChannel src = new FileInputStream(backupDB).getChannel();
                     FileChannel dst = new FileOutputStream(currentDB).getChannel();
                     dst.transferFrom(src, 0, src.size());
@@ -222,8 +197,7 @@ public class HelpMe
                     Toast.makeText(context, "Database Restored successfully", Toast.LENGTH_SHORT).show();
                 }
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -231,21 +205,18 @@ public class HelpMe
     }
 
 
-    public String getVestionCode(Context c)
-    {
+    public String getVestionCode(Context c) {
         /*
         p40sdmkkmgjb1ggyadqz
         e4bbe5b7a4c1eb55652965aee885dd59bd2ee7f4
          */
         String v = "";
-        try
-        {
+        try {
 
             v += c.getPackageManager()
                     .getPackageInfo(c.getPackageName(), 0).versionName;
 
-        } catch (PackageManager.NameNotFoundException e)
-        {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         // Log.e("log",v);
@@ -253,20 +224,16 @@ public class HelpMe
 
     }
 
-    public Bitmap getCroppedBitmap(Bitmap bmp, int radius)
-    {
+    public Bitmap getCroppedBitmap(Bitmap bmp, int radius) {
         Bitmap sbmp;
 
-        if (bmp.getWidth() != radius || bmp.getHeight() != radius)
-        {
+        if (bmp.getWidth() != radius || bmp.getHeight() != radius) {
             float smallest = Math.min(bmp.getWidth(), bmp.getHeight());
             float factor = smallest / radius;
             sbmp = Bitmap.createScaledBitmap(bmp,
                     (int) (bmp.getWidth() / factor),
                     (int) (bmp.getHeight() / factor), false);
-        }
-        else
-        {
+        } else {
             sbmp = bmp;
         }
 
@@ -291,8 +258,7 @@ public class HelpMe
     }
 
 
-    public Bitmap scaleCenterCrop(Bitmap source, int newHeight, int newWidth)
-    {
+    public Bitmap scaleCenterCrop(Bitmap source, int newHeight, int newWidth) {
         int sourceWidth = source.getWidth();
         int sourceHeight = source.getHeight();
 
@@ -326,8 +292,7 @@ public class HelpMe
     }
 
 
-    public Bitmap getCroppedBitmap(Bitmap srcBitmap)
-    {
+    public Bitmap getCroppedBitmap(Bitmap srcBitmap) {
 
 
         int squareBitmapWidth = Math.min(srcBitmap.getWidth(), srcBitmap.getHeight());
@@ -449,8 +414,7 @@ public class HelpMe
 
     }
 
-    public Bitmap overlay(Bitmap bmp1, Bitmap bmp2)
-    {
+    public Bitmap overlay(Bitmap bmp1, Bitmap bmp2) {
         Bitmap bmOverlay = Bitmap.createBitmap(bmp1.getWidth(), bmp1.getHeight(), bmp1.getConfig());
         Canvas canvas = new Canvas(bmOverlay);
         canvas.drawBitmap(bmp1, new Matrix(), null);
@@ -459,15 +423,12 @@ public class HelpMe
     }
 
 
-    public void exportDB(Context cnt)
-    {
-        try
-        {
+    public void exportDB(Context cnt) {
+        try {
             File sd = Environment.getExternalStorageDirectory();
             File data = Environment.getDataDirectory();
 
-            if (sd.canWrite())
-            {
+            if (sd.canWrite()) {
 
 
                 String currentDBPath = "/data/" + "ksi.com.ysf.ysf" + "/databases/" + "ysf.db";
@@ -484,8 +445,7 @@ public class HelpMe
                         Toast.LENGTH_SHORT).show();
 
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(cnt, "Backup Failed!", Toast.LENGTH_SHORT)
                     .show();
@@ -494,32 +454,24 @@ public class HelpMe
     }
 
 
-    public void retrofironFailure(Throwable t)
-    {
+    public void retrofironFailure(Throwable t) {
 
-        if (t instanceof ConnectException)
-        {
+        if (t instanceof ConnectException) {
             //TODO call
 //            TastyToast.makeText(context, context.getString(R.string.ntproblem), TastyToast.LENGTH_LONG, TastyToast.ERROR);
-        }
-        else
-        {
+        } else {
             //TODO call
 
 //            TastyToast.makeText(context, t.getMessage(), TastyToast.LENGTH_LONG, TastyToast.ERROR);
         }
     }
 
-    public void retrofirOnNotTwoHundred(int x)
-    {
-        if (x == 204)
-        {
+    public void retrofirOnNotTwoHundred(int x) {
+        if (x == 204) {
             //TODO call
 
 //            TastyToast.makeText(context, context.getString(R.string.no_content), TastyToast.LENGTH_SHORT, TastyToast.ERROR);
-        }
-        else if (x == 400)
-        {
+        } else if (x == 400) {
             //TODO call
 
 //            TastyToast.makeText(context, context.getString(R.string.no_data), TastyToast.LENGTH_SHORT, TastyToast.ERROR);
@@ -528,32 +480,11 @@ public class HelpMe
 
     }
 
-    private static View mainProgressBar;
-
-    public static void showLoading(boolean loading)
-    {
-        if (mainProgressBar == null)
-        {
-            return;
-        }
+    public static void showLoading(boolean loading,Context context) {
         if (loading)
-        {
-            mainProgressBar.setVisibility(View.VISIBLE);
-            mainProgressBar.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-
-                }
-            });
-//            showProgressDialog();
-        }
+            progressDialog = new ProgressDialog(context, IndicatorStyle.BallBeat).show();
         else
-        {
-            mainProgressBar.setVisibility(View.GONE);
-            mainProgressBar.setOnClickListener(null);
-        }
+            progressDialog.dismiss();
     }
 
 }

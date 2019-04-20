@@ -1,4 +1,4 @@
-package com.andrew.samir.manastmovies.Data;
+package com.andrew.samir.manastmovies.Data.PeopleResponseData;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -16,36 +16,39 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:weightSum="4"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_height="wrap_content">
-        <EditText
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:layout_height="wrap_content"
-            android:text='@={peopleViewModel.testString}'
-            android:textSize="20sp"
-            android:padding="10dp"
-            android:inputType="text"
-            android:layout_margin="5dp"
-            android:hint="@string/write_here"
-            tools:ignore="Autofill" />
+            android:weightSum="4">
 
-        <Button
-            android:layout_margin="5dp"
-            android:id="@+id/btnTest"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="@string/search"
-            android:layout_height="wrap_content"
-            android:onClick="@{()-> peopleViewModel.AtBtnClick()}" />
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:hint="@string/write_here"
+                android:inputType="text"
+                android:padding="10dp"
+                android:text='@={peopleViewModel.queryString}'
+                android:textSize="20sp"
+                tools:ignore="Autofill" />
+
+            <Button
+                android:id="@+id/btnTest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:onClick="@{()-> peopleViewModel.AtBtnClick()}"
+                android:text="@string/search" />
         </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list_people"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
+            android:focusable="true"
             android:scrollbars="vertical"
-            tools:listitem="@layout/person_details" />
+            tools:listitem="@layout/rv_item_person" />
     </LinearLayout>
 </layout>

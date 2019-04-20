@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/item_person_image"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_120sdp"
+        android:layout_margin="@dimen/_5sdp">
+
+        <ImageView
+            android:id="@+id/personImageUrl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            app:imageUrl="@{ItemPersonImagesViewModel.personImageUrl}"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
+    <data>
+
+        <variable
+            name="ItemPersonImagesViewModel"
+            type="com.andrew.samir.manastmovies.adapters.imagesAdapter.ItemPersonImagesViewModel" />
+    </data>
+
+</layout>

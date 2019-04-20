@@ -13,8 +13,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class RestManasatMovies {
-    public String apiKey = "ApiKey";
-    public String Authorization = "Authorization";
 
     public static ApiCall create() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();

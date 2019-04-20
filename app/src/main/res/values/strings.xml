@@ -5,4 +5,12 @@
     <string name="connection_error">Wrong With Internet Connection</string>
     <string name="write_here">Write Here</string>
     <string name="search">Search</string>
+    <string name="birthday">birthday</string>
+    <string name="death_day">Death day</string>
+    <string name="popularity">Popularity</string>
+    <string name="place_of_birth">Place Of Birth</string>
+    <string name="imdb_id">imdb Id</string>
+    <string name="known_for_department">Known For Department</string>
+    <string name="movie_key">c9118723dfaacb064858a46444a9a6c8</string>
+    <string name="base_url">http://image.tmdb.org/t/p/w185/</string>
 </resources>

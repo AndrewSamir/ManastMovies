@@ -5,5 +5,6 @@ package com.andrew.samir.manastmovies.utlities;
  */
 public enum DataEnum
 {
+    personId
 
 }

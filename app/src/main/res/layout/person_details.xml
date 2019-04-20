@@ -1,6 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</android.support.constraint.ConstraintLayout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.andrew.samir.manastmovies.activities.personDetailsActivity.PersonDetailsViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="RtlSymmetry">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="locale"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgPerson"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:src="@{viewModel.profileImage}"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:text="@{viewModel.personDetails.get().getName}"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_20sdp"
+                    android:textStyle="bold|italic"
+                    tools:text="Adam Sam" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_images"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layoutDirection="locale"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/birthday"
+                    android:textColor="@color/colorBlack"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|start"
+                    android:text="@{viewModel.personDetails.get().getBirthday}"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layoutDirection="locale"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/death_day"
+                    android:textColor="@color/colorBlack"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|start"
+                    android:text="@{viewModel.personDetails.get().getDeathday}"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layoutDirection="locale"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/popularity"
+                    android:textColor="@color/colorBlack"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|start"
+                    android:text="@{viewModel.personDetails.get().getPopularity}"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layoutDirection="locale"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/place_of_birth"
+                    android:textColor="@color/colorBlack"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|start"
+                    android:text="@{viewModel.personDetails.get().getPlaceOfBirth}"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layoutDirection="locale"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/imdb_id"
+                    android:textColor="@color/colorBlack"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|start"
+                    android:text="@{viewModel.personDetails.get().getImdbId}"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layoutDirection="locale"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/known_for_department"
+                    android:textColor="@color/colorBlack"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|start"
+                    android:text="@{viewModel.personDetails.get().getKnownForDepartment}"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center_vertical|start"
+                android:text="@{viewModel.personDetails.get().getBiography}"
+                android:textColor="@color/colorPrimaryDark"
+                android:textDirection="locale"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center_vertical|start"
+                android:paddingBottom="@dimen/_20sdp"
+                android:text="@{viewModel.personDetails.get().getHomepage}"
+                android:textColor="@color/colorAccent"
+                android:textDirection="locale"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="italic" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

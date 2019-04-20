@@ -66,4 +66,7 @@ dependencies {
     //my library loading
     implementation 'com.github.kickstartinteractiveandroidteam:KsiProjectMate:v1.1'
 
+    //dimen to all screens
+    implementation 'com.intuit.sdp:sdp-android:1.0.4'
+
 }
